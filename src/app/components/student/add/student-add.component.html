@@ -1,0 +1,168 @@
+<div class="w3-container" *ngIf="studentAddForm">
+  <form
+    class="w3-container"
+    [formGroup]="studentAddForm"
+    (ngSubmit)="doRegister()"
+  >
+    <div class="w3-panel w3-round-small w3-teal">
+      <h3>
+        <span *ngIf="index == undefined">Pridať Študenta</span
+        ><span *ngIf="index != undefined">Upraviť Študenta</span>
+        <a routerLink="/" class="w3-button w3-green custom-button"
+          ><i class="w3-medium fa fa-chevron-left"></i> Späť</a
+        >
+      </h3>
+    </div>
+
+    <label class="w3-text-blue"
+      ><i class="w3-medium custom-icon fa fa-user"></i><b>Meno</b></label
+    >
+    <input
+      class="w3-input w3-border"
+      type="text"
+      formControlName="first_name"
+    />
+    <div
+      class="w3-panel w3-red"
+      *ngIf="
+        studentAddForm.controls['first_name'].invalid &&
+        (studentAddForm.controls['first_name'].dirty ||
+          studentAddForm.controls['first_name'].touched)
+      "
+    >
+      Prosím zadajte od 3 do 50 znakov
+    </div>
+
+    <label class="w3-text-blue"
+      ><i class="w3-medium custom-icon fa fa-user"></i><b>Priezvisko</b></label
+    >
+    <input class="w3-input w3-border" type="text" formControlName="last_name" />
+    <div
+      class="w3-panel w3-red"
+      *ngIf="
+        studentAddForm.controls['last_name'].invalid &&
+        (studentAddForm.controls['last_name'].dirty ||
+          studentAddForm.controls['last_name'].touched)
+      "
+    >
+      Prosím zadajte od 3 do 50 znakov
+    </div>
+
+    <label class="w3-text-blue"
+      ><i class="w3-medium custom-icon fa fa-envelope-o"></i
+      ><b>Dátum Narodenia</b></label
+    >
+    <input
+      class="w3-input w3-border"
+      type="date"
+      formControlName="date_birth"
+    />
+    <div
+      class="w3-panel w3-red"
+      *ngIf="
+        studentAddForm.controls['date_birth'].invalid &&
+        (studentAddForm.controls['date_birth'].dirty ||
+          studentAddForm.controls['date_birth'].touched)
+      "
+    >
+      Prosím zadajte skutočný dátum narodenia
+    </div>
+
+    <label class="w3-text-blue"
+      ><i class="w3-medium custom-icon fa fa-phone"></i><b>Priemer</b></label
+    >
+    <input class="w3-input w3-border" type="string" formControlName="average" />
+    <div
+      class="w3-panel w3-red"
+      *ngIf="
+        studentAddForm.controls['average'].invalid &&
+        (studentAddForm.controls['average'].dirty ||
+          studentAddForm.controls['average'].touched)
+      "
+    >
+      Prosím zadajte platný priemer (1.00 až 5.00)
+    </div>
+
+    <label class="w3-text-blue"
+      ><i class="w3-medium custom-icon fa fa-envelope-o"></i
+      ><b>Trieda</b></label
+    >
+
+    <select class="w3-select w3-border" formControlName="class">
+      <option value="-">-</option>
+      <option value="1. D">1. D</option>
+      <option value="4. A">4. A</option>
+      <option value="3. B">3. B</option>
+      <option value="2. C">2. C</option>
+    </select>
+
+    <label class="w3-text-blue"
+      ><i class="w3-medium custom-icon fa fa-envelope-o"></i><b>Odbor</b></label
+    >
+    <select class="w3-select w3-border" formControlName="subject">
+      <option value="-">-</option>
+      <option value="PDT">Programovanie digitálnych technológií</option>
+      <option value="IA">Inteligentné technológie</option>
+      <option value="UI">Umelá inteligencia</option>
+      <option value="SIP">Silno prúd</option>
+      <option value="SLP">Slabo prúd</option>
+    </select>
+
+    <label class="w3-text-blue"
+      ><i class="w3-medium custom-icon fa fa-user"></i><b>Pohlavie</b></label
+    >
+    <select class="w3-select w3-border" formControlName="gender">
+      <option value="-">-</option>
+      <option value="Muž">Muž</option>
+      <option value="Žena">Žena</option>
+      <option value="Žiadne z uvedených">Žiadne z uvedených</option>
+    </select>
+
+    <label class="w3-text-blue"
+      ><i class="w3-medium custom-icon fa fa-user"></i><b>Info</b></label
+    >
+    <input class="w3-input w3-border" type="text" formControlName="info" />
+    <div
+      class="w3-panel w3-red"
+      *ngIf="
+        studentAddForm.controls['info'].invalid &&
+        (studentAddForm.controls['info'].dirty ||
+          studentAddForm.controls['info'].touched)
+      "
+    >
+      Prosím zadajte do 100 znakov
+    </div>
+
+    <label class="w3-text-blue" for="disabled"
+      ><i class="w3-medium custom-icon fa fa-user"></i><b>Postihnutý</b></label
+    >
+    <input
+      id="disabled"
+      class="w3-input-special w3-border"
+      type="checkbox"
+      formControlName="disabled"
+    />
+    <br />
+    <br />
+
+    <div
+      *ngIf="index != undefined"
+      class="w3-input-special2"
+      style="border: none;"
+    >
+      Naposledy upravené
+      {{ studentAddForm.get('last_edit').value | date: 'dd/MM/yyyy HH:mm' }}
+    </div>
+
+    <br />
+    <button
+      class="w3-btn w3-blue"
+      type="submit"
+      [disabled]="!studentAddForm.valid"
+    >
+      <span *ngIf="index == undefined">Pridať</span
+      ><span *ngIf="index != undefined">Upraviť</span>
+      <i class="w3-medium fa fa-check"></i>
+    </button>
+  </form>
+</div>

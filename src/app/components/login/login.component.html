@@ -1,0 +1,31 @@
+<div class="w3-container align-center w3-card login-card">
+  <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+    <br />
+    <label class="w3-text-blue"><b>Meno</b></label>
+    <input class="w3-input w3-border" type="text" formControlName="username" />
+
+    <label class="w3-text-blue"><b>Heslo</b></label>
+    <input
+      class="w3-input w3-border"
+      type="password"
+      formControlName="password"
+    />
+    <div
+      class="w3-panel w3-red"
+      *ngIf="
+        loginForm.controls['password'].invalid &&
+        (loginForm.controls['password'].dirty ||
+          loginForm.controls['password'].touched)
+      "
+    >
+      Heslo musí mať aspoň 6 znakov a obsahovať aspoň 1 číslo
+    </div>
+    <br />
+    <button class="w3-btn w3-blue" type="submit" [disabled]="!loginForm.valid">
+      Prihlásiť sa <i class="w3-medium fa fa-check"></i>
+    </button>
+  </form>
+  <div class="w3-panel w3-blue-gray">
+    <p>Údaje na prihlásenie: <b>admin</b> &amp; <b>admin123</b></p>
+  </div>
+</div>

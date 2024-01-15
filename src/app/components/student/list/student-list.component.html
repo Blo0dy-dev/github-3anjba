@@ -1,0 +1,100 @@
+<div class="w3-container" *ngIf="studentListData">
+  <div class="w3-panel w3-round-small w3-teal">
+    <h3>Zoznam Študentov</h3>
+    <button routerLink="/add" class="w3-button w3-green custom-button">
+      <i class="w3-medium fa fa-plus"></i> Pridať Nového Študenta
+    </button>
+  </div>
+  <span
+    ><i class="w3-medium fa fa-search"></i> Vyhľadať :
+    <input class="" type="text" [(ngModel)]="filterData"
+  /></span>
+
+  <div
+    class="w3-panel w3-red"
+    *ngIf="(studentListData | filter: filterData).length == 0"
+  >
+    <p>
+      Žiadny študenti
+      <span *ngIf="filterData"> s vyhľadávacím pojmom "{{ filterData }}"</span>
+      neboli nájdený
+    </p>
+  </div>
+  <div
+    class="w3-panel w3-light-grey w3-padding-16 w3-card-2"
+    *ngIf="
+      (studentListData | filter: filterData | filter: filterData).length != 0
+    "
+  >
+    <table class="w3-table w3-striped w3-bordered">
+      <tr>
+        <th><i class="w3-medium custom-icon fa fa-refresh"></i></th>
+        <th><i class="w3-medium custom-icon fa fa-user"></i> Meno</th>
+        <th><i class="w3-medium custom-icon fa fa-user"></i> Priezvisko</th>
+        <th>
+          <i class="w3-medium custom-icon fa fa-envelope-o"></i> Dátum narodenia
+        </th>
+        <th><i class="w3-medium custom-icon fa fa-phone"></i> Priemer</th>
+        <th><i class="w3-medium custom-icon fa fa-phone"></i> Trieda</th>
+        <th><i class="w3-medium custom-icon fa fa-phone"></i> Odbor</th>
+        <th><i class="w3-medium custom-icon fa fa-phone"></i> Pohlavie</th>
+        <th><i class="w3-medium custom-icon fa fa-phone"></i> Info</th>
+        <th><i class="w3-medium custom-icon fa fa-phone"></i> Postihnutý</th>
+        <th>
+          <i class="w3-medium custom-icon fa fa-phone"></i> Posledná úprava
+        </th>
+
+        <th><i class="w3-medium custom-icon fa fa-pencil"></i></th>
+        <th><i class="w3-medium custom-icon fa fa-trash"></i></th>
+      </tr>
+      <tr
+        *ngFor="let student of studentListData | filter: filterData; index as i"
+        appHighlightStudent
+      >
+        <td>{{ i + 1 }}</td>
+        <td class="pointer" [routerLink]="['detail', i]">
+          {{ student.first_name }}
+        </td>
+        <td class="pointer" [routerLink]="['detail', i]">
+          {{ student.last_name }}
+        </td>
+        <td class="pointer" [routerLink]="['detail', i]">
+          {{ student.date_birth }}
+        </td>
+        <td class="pointer" [routerLink]="['detail', i]">
+          {{ student.average }}
+        </td>
+
+        <td class="pointer" [routerLink]="['detail', i]">
+          {{ student.class }}
+        </td>
+        <td class="pointer" [routerLink]="['detail', i]">
+          {{ student.subject }}
+        </td>
+        <td class="pointer" [routerLink]="['detail', i]">
+          {{ student.gender }}
+        </td>
+        <td class="pointer" [routerLink]="['detail', i]">
+          {{ student.info }}
+        </td>
+        <td class="pointer" [routerLink]="['detail', i]">
+          {{ student.disabled }}
+        </td>
+        <td class="pointer" [routerLink]="['detail', i]">
+          {{ student.last_edit }}
+        </td>
+
+        <td>
+          <button [routerLink]="['update', i]" class="w3-button w3-blue">
+            Upraviť
+          </button>
+        </td>
+        <td>
+          <button (click)="deleteStudent(i)" class="w3-button w3-red">
+            Vymazať
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
